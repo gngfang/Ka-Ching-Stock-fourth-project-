@@ -4,5 +4,40 @@
 
 <h1>Home</h1>
 
+{%if ticker%}
+{{ticker}}
+{%endif%}
+
+
+<!-- if there is an api -->
+{%if api%}
+<!-- another if statement to validate the symbol if is legit -->
+{%if api == "Error" %}
+<h3>The symbol does not exist, please try again...</h3>
+<!-- if is legit return the key and value pair of the api -->
+{%else%}
+<h1>{{api.companyName}}</h1>
+
+<h2>Stock Information</h2>
+<ul>
+
+    <li>Symbol: {{api.symbol}}</li>
+    <li>Price: ${{api.latestPrice}}</li>
+    <li>Latest Update: {{api.latestTime}}</li>
+    <li>52 Week High: {{api.week52High}}</li>
+    <li>52 Week Low: {{api.week52Low}}</li>
+
+
+</ul>
+
+
+<!-- a for loop to retrieve the key and value pair using the .items method-->
+<!-- {%for key, value in api.items%}
+{{key}}: {{value}}<br />
+{%endfor%} -->
+{%endif%}
+{%endif%}
+
+
 
 {%endblock%}
