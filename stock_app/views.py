@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth import authenticate, login, logout
 import requests
 import json
 
@@ -37,3 +38,11 @@ def home(request):
 
 def about(request):
     return render(request, 'about.html')
+
+
+def follow_stock(request):
+    return render(request, 'follow_stock.html')
+
+
+def login_user(request):
+    return render(request, 'login.html')
