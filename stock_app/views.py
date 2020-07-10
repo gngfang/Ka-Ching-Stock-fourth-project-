@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
+from .forms import RegisterForm
 
 
 import requests
@@ -47,14 +49,37 @@ def follow_stock(request):
     return render(request, 'follow_stock.html')
 
 
+def registration(request):
+    """ Registration form and function. It save the form if is valid """
+    if request.method == "POST":
+        register_form = RegisterForm(request.POST)
+        if register_form.is_valid():
+            # if User.objects.filter(email=email_register_form).exists():
+            #     context={"Email already e"}
+            register_form.save()
+            username = register_form.cleaned_data['username']
+            password = register_form.cleaned_data['password1']
+            user = authenticate(request, username=username, password=password)
+            login(request, user)
+            messages.success(
+                request, f'You successfully register {user.first_name}')
+            return redirect('profile')
+
+    else:
+        register_form = RegisterForm()
+    context = {'form': register_form}
+    return render(request, 'registration.html', context)
+
+
 def login_user(request):
+    """ Login function if the request==post will do the following and will send a message depend on the success """
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, ('You successfully logged in'))
+            messages.success(request, f'Welcome Back {user.first_name}')
             return redirect('home')
 
         else:
@@ -67,6 +92,12 @@ def login_user(request):
 
 
 def logout_user(request):
+    """ Log out function once it successful will sent a message of You are logged out """
     logout(request)
     messages.success(request, ('You are logged out'))
     return redirect('home')
+
+
+def profile(request):
+    """ Profile view """
+    return render(request, 'profile.html', {})

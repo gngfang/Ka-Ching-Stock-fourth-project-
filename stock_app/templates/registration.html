@@ -1,0 +1,42 @@
+{%extends 'base.html'%}
+
+{%block content %}
+
+<h1 class='text-center'>Register</h1>
+
+<div class="col-md-6 offset-md-3">
+
+
+
+    <form action="{%url 'registration'%}" method="POST">
+
+
+        {%csrf_token%}
+
+        {%if form.errors%}
+        <div class="alert alert-danger alert-dismissable" role='alert'>
+
+            <!-- button to close the alert -->
+            <button class='close' data-dismiss="alert">
+                <small><sup>x</sup></small>
+
+            </button>
+
+            <p>Invalid Input</p>
+
+
+        </div>
+        {%endif%}
+        {{form.as_p}}
+
+        <input type="submit" value="Register" class='btn btn-secondary'>
+
+
+
+    </form>
+
+</div>
+
+
+
+{%endblock %}

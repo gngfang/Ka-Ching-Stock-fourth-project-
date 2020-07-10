@@ -7,6 +7,7 @@ urlpatterns = [
     path('follow_stock/', views.follow_stock, name='follow_stock'),
     path('login/', views.login_user, name='login'),
     path('logout/', views.logout_user, name='logout'),
-
+    path('profile/', views.profile, name='profile'),
+    path('registration', views.registration, name='registration')
 
 ]
