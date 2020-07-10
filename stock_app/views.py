@@ -1,12 +1,19 @@
 from django.shortcuts import render, redirect
+# brining auth
 from django.contrib.auth import authenticate, login, logout
+# bringing form
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib import messages
 from .forms import RegisterForm
+# bringing messages to send message
+from django.contrib import messages
 
 
+# import to fetch API
 import requests
 import json
+
+# import models
+from .models import Profile
 
 # Create your views here.
 
