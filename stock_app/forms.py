@@ -24,7 +24,7 @@ class RegisterForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
 
-        """ To style the form """
+        """ To style the form args and kwargs to pass keyword"""
         # give class of form control to username, empty the label, and a help text
         self.fields['username'].widget.attrs['class'] = 'form-control'
         self.fields['username'].widget.attrs['placeholder'] = 'Username'
