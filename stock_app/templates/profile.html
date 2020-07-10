@@ -4,11 +4,13 @@
 
 {%if user.is_authenticated%}
 
-<p>{{user.email}}</p>
-<p>{{user.username}}</p>
-<p>{{user.password}}</p>
-<p>{{user.first_name}}</p>
-<p>{{user.last_name}}</p>
+<p>Email: {{user.email}}</p>
+<p>Username: {{user.username}}</p>
+<p>Password: {{user.password}}</p>
+<p>First: {{user.first_name}}</p>
+<p>Last: {{user.last_name}}</p>
+<p>Linkt:<a href=" {{user.profile.linkedin}}"> {{user.profile.linkedin}}</a></p>
+<p>City: {{user.profile.located_state}}</p>
 
 {%endif%}
 

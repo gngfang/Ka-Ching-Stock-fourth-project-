@@ -87,7 +87,7 @@ def login_user(request):
         if user is not None:
             login(request, user)
             messages.success(request, f'Welcome Back {user.first_name}')
-            return redirect('home')
+            return redirect('profile')
 
         else:
 
@@ -106,5 +106,7 @@ def logout_user(request):
 
 
 def profile(request):
-    """ Profile view """
-    return render(request, 'profile.html', {})
+    """ Profile view using user to request """
+    user = request.user
+    context = {'user': user}
+    return render(request, 'profile.html', context)
