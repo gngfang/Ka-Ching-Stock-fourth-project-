@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect
 # brining auth
 from django.contrib.auth import authenticate, login, logout
 # bringing form
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .forms import RegisterForm
+from .forms import EditUserForm
 # bringing messages to send message
 from django.contrib import messages
 
@@ -110,3 +111,20 @@ def profile(request):
     user = request.user
     context = {'user': user}
     return render(request, 'profile.html', context)
+
+
+def profile_edit(request, profile_id):
+    # grabbing the profile id
+    profile = Profile.objects.get(id=profile_id)
+
+    if request.method == "POST":
+        # giving the form
+        user_form = EditUserForm(request.POST, instance=request.user)
+        if user_form.is_valid():
+            user_form.save()
+            return redirect('profile')
+    else:
+        user_form = EditUserForm(instance=request.user)
+
+    context = {'form': user_form}
+    return render(request, 'profile_edit.html', context)
